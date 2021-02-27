@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <div @click="$router.push('/register')">注册</div>
+      </el-header>
       <el-main>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="用户名">
@@ -63,7 +65,7 @@ export default {
   }
 };
 </script>
-<style style='less'>
+<style lang='less'>
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
@@ -83,19 +85,22 @@ export default {
   background-color: #e9eef3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  // line-height: 160px;
+  height: 100%;
 }
+.demo-form-inline {
+  height: 50px;
+}
+// body > .el-container {
+//   margin-bottom: 40px;
+// }
 
-body > .el-container {
-  margin-bottom: 40px;
-}
+// .el-container:nth-child(5) .el-aside,
+// .el-container:nth-child(6) .el-aside {
+//   line-height: 260px;
+// }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
+// .el-container:nth-child(7) .el-aside {
+//   line-height: 320px;
+// }
 </style>
