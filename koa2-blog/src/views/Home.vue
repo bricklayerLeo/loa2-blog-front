@@ -2,14 +2,17 @@
   <div class="home">
     <el-container>
       <el-header>
-        <div @click="$router.push('/register')">注册</div>
+        <div class="cont">
+          <div @click="$router.push('/register')">注册</div>
+          <div @click="$router.push('/setting')">设置</div>
+        </div>
       </el-header>
       <el-main>
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
           <el-form-item label="用户名">
             <el-input
-              @blur="idExit(formInline.username)"
-              v-model="formInline.username"
+              @blur="idExit(formInline.userName)"
+              v-model="formInline.userName"
               placeholder="用户名"
             ></el-input>
           </el-form-item>
@@ -28,14 +31,14 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
-import { isExit } from "@/request/api";
+import { isExit, login, jsona } from "@/request/api";
 
 export default {
   name: "Home",
   data() {
     return {
       formInline: {
-        username: "",
+        userName: "",
         password: ""
       }
     };
@@ -45,7 +48,16 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
+      login(this.formInline).then(res => {
+        console.log(res.data, "-----------");
+        localStorage.setItem("token", res.data);
+        this.getJson();
+      });
+    },
+    getJson() {
+      jsona().then(res => {
+        console.log(res);
+      });
     },
     idExit(userName) {
       isExit({ userName }).then(res => {
@@ -62,23 +74,30 @@ export default {
     this.test();
     console.log(process.env);
     console.log(process.env.VUE_APP_BASIC_API);
+    this.getJson();
   }
 };
 </script>
 <style lang='less'>
+.cont {
+  display: flex;
+  flex-direction: row;
+  div + div {
+    margin-left: 100px;
+  }
+}
 .el-header,
 .el-footer {
   background-color: #b3c0d1;
   color: #333;
   text-align: center;
-  line-height: 60px;
 }
 
 .el-aside {
   background-color: #d3dce6;
   color: #333;
   text-align: center;
-  line-height: 200px;
+  // line-height: 200px;
 }
 
 .el-main {
