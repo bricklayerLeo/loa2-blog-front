@@ -13,6 +13,7 @@
       <el-button size="small" type="primary">点击上传</el-button>
       <div slot="tip" class="el-upload__tip">只能上传jpg/jpeg/png文件，且不超过500kb</div>
     </el-upload>
+    <img src="localhost:3000/1614613502896.3_weixin_42312074_1594708950.jpg" alt />
   </div>
 </template>
 <script>
