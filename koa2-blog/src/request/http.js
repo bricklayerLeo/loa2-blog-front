@@ -23,7 +23,7 @@ axios.interceptors.request.use(
         // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
         const token = localStorage.getItem('token');
-        token && (config.headers.Authorization = 'Bearer ' + token);
+        token && (config.headers.authorization = 'Bearer ' + token);
         return config;
     },
     error => {
@@ -34,10 +34,18 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         if (response.status === 200) {
+            //获取更新的token
+            const { authorization } = response.headers;
+            //如果token存在则存在localStorage
+            if (authorization) {
+                localStorage.removeItem('token')
+                localStorage.setItem('token', authorization);
+            }
             return Promise.resolve(response);
         } else {
             return Promise.reject(response);
         }
+
     },
     // 服务器状态码不是200的情况    
     error => {

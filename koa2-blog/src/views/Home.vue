@@ -54,27 +54,16 @@ export default {
         this.getJson();
       });
     },
-    getJson() {
-      jsona().then(res => {
-        console.log(res);
-      });
-    },
     idExit(userName) {
+      if (userName === "") return false;
       isExit({ userName }).then(res => {
-        console.log(res);
-      });
-    },
-    test() {
-      isExit({}).then(res => {
         console.log(res);
       });
     }
   },
   created() {
-    this.test();
     console.log(process.env);
     console.log(process.env.VUE_APP_BASIC_API);
-    this.getJson();
   }
 };
 </script>
