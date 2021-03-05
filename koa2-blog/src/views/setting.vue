@@ -30,10 +30,17 @@
     </el-form>
     <el-button type="primary" @click="changeUserInfo">提交</el-button>
     <el-button type="primary" @click="changePassword">修改密码</el-button>
+    <el-button type="primary" @click="logout">退出</el-button>
   </div>
 </template>
 <script>
-import { setting, upload, changePassword, changeInfo } from "@/request/api";
+import {
+  setting,
+  upload,
+  changePassword,
+  changeInfo,
+  logout
+} from "@/request/api";
 export default {
   data() {
     return {
@@ -55,6 +62,15 @@ export default {
     };
   },
   methods: {
+    logout() {
+      logout().then(res => {
+        localStorage.removeItem("token");
+        this.$router.replace({
+          path: "/"
+        });
+        console.log(res);
+      });
+    },
     changePassword() {
       changePassword(this.userInfo1).then(res => {
         console.log(res);

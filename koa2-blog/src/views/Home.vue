@@ -51,7 +51,9 @@ export default {
       login(this.formInline).then(res => {
         console.log(res.data, "-----------");
         localStorage.setItem("token", res.data);
-        this.getJson();
+        if (res.errno == 0) {
+          this.$router.push("/about");
+        }
       });
     },
     idExit(userName) {
