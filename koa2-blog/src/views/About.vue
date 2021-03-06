@@ -8,34 +8,66 @@
         <el-upload
           class="avatar-uploader"
           ref="upload"
+          action="string"
           accept="image/jpeg, image/png, image/jpg"
           :before-upload="onBeforeUploadImage"
           :http-request="UploadImage"
         >
-          <img v-if="image" :src="image" class="avatar" />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          <!-- <img v-if="image" :src="image" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
           <el-button size="small" type="primary">点击上传</el-button>
-          <div slot="tip" class="el-upload__tip">只能上传jpg/jpeg/png文件，且不超过500kb</div>
+          <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/jpeg/png文件，且不超过500kb</div> -->
         </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
       </el-form-item>
     </el-form>
+
+    <div v-for="(e,idx) in blogList" :key="idx">
+      <p>
+        {{e.content}}
+        <img v-if="e.image" :src="'http://localhost:3000'+e.image" class="avatar" />
+      </p>
+      <p>
+        <img v-if="e.image" :src="'http://localhost:3000'+e.user.picture" class="avatar" />
+        {{e.user.userName}}
+      </p>
+    </div>
+    <div @click="getMore">加载更多</div>
   </div>
 </template>
 <script>
-import { upload, createBlog } from "@/request/api";
+import { upload, createBlog, getSquareList } from "@/request/api";
 export default {
   data() {
     return {
       form: {
         content: "",
         image: ""
-      }
+      },
+      image: "",
+      params: {
+        pageIndex: 0
+      },
+      blogList: []
     };
   },
+  created() {
+    this.getSquareList();
+  },
   methods: {
+    getMore() {
+      this.params.pageIndex++;
+      this.getSquareList({ ...this.params });
+    },
+    getSquareList() {
+      getSquareList(this.params).then(res => {
+        console.log(res);
+
+        this.blogList = this.blogList.concat(res.data.blogList);
+      });
+    },
     onSubmit() {
       createBlog(this.form).then(res => {
         console.log(res);
@@ -72,11 +104,11 @@ export default {
 };
 </script>
 <style lang='less'>
-.setting {
+.about {
   width: 500px;
 }
 .avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
+  // border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   position: relative;

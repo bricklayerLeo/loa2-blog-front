@@ -1,30 +1,32 @@
 <template>
   <div class="home">
-    <el-container>
+    <!-- <el-container>
       <el-header>
         <div class="cont">
           <div @click="$router.push('/register')">注册</div>
           <div @click="$router.push('/setting')">设置</div>
+          <div @click="$router.push('/person')">个人主页</div>
+          <div @click="$router.push('/about')">发微博</div>
         </div>
       </el-header>
-      <el-main>
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
-          <el-form-item label="用户名">
-            <el-input
-              @blur="idExit(formInline.userName)"
-              v-model="formInline.userName"
-              placeholder="用户名"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="密码">
-            <el-input v-model="formInline.password" placeholder="密码"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
-          </el-form-item>
-        </el-form>
-      </el-main>
-    </el-container>
+    <el-main>-->
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="用户名">
+        <el-input
+          @blur="idExit(formInline.userName)"
+          v-model="formInline.userName"
+          placeholder="用户名"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="密码">
+        <el-input v-model="formInline.password" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
+    <!-- </el-main> -->
+    <!-- </el-container> -->
   </div>
 </template>
 
@@ -64,6 +66,10 @@ export default {
     }
   },
   created() {
+    const token = localStorage.getItem("token");
+    // if (token) {
+    //   this.$router.push("/about");
+    // }
     console.log(process.env);
     console.log(process.env.VUE_APP_BASIC_API);
   }

@@ -12,3 +12,6 @@ export const upload = p => post('/api/utils/upload', p)
 export const changeInfo = p => post('/api/user/changeInfo', p)
 export const logout = p => post('/api/user/logout', p)
 export const createBlog = p => post('/api/blog/create', p)
+
+export const getProfileList = p => get('/api/blog/profile', p)
+export const getSquareList = p => get('/api/blog/square', p)

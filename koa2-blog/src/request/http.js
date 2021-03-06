@@ -34,6 +34,9 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         if (response.status === 200) {
+            if (response.data.errno === '401') {
+                return router.replace('/')
+            }
             //获取更新的token
             const { authorization } = response.headers;
             //如果token存在则存在localStorage
@@ -55,10 +58,10 @@ axios.interceptors.response.use(
                 // 未登录则跳转登录页面，并携带当前页面的路径                
                 // 在登录成功后返回当前页面，这一步需要在登录页操作。                
                 case 401:
-                    // router.replace({
-                    //     path: '/login',
-                    //      query: { redirect: router.currentRoute.fullPath }
-                    // });
+                    router.replace(
+                        '/',
+                        //  query: { redirect: router.currentRoute.fullPath }
+                    );
                     break;
                 // 403 token过期                
                 // 登录过期对用户进行提示                
