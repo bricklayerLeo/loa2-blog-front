@@ -24,13 +24,18 @@
       </el-form-item>
     </el-form>
 
-    <div v-for="(e,idx) in blogList" :key="idx">
+    <div @click="focus">关注</div>
+    <div
+      v-for="(e,idx) in blogList"
+      :key="idx"
+      @click="$router.push({path:'/person',query:{id:e.userId,userName:e.userName}})"
+    >
       <p>
         {{e.content}}
-        <img v-if="e.image" :src="'http://localhost:3000'+e.image" class="avatar" />
+        <img v-if="e.image" :src="'http://localhost:3000'+e.image" />
       </p>
       <p>
-        <img v-if="e.image" :src="'http://localhost:3000'+e.user.picture" class="avatar" />
+        <img v-if="e.user.picture" :src="'http://localhost:3000'+e.user.picture" class="avatar" />
         {{e.user.userName}}
       </p>
     </div>
@@ -57,6 +62,7 @@ export default {
     this.getSquareList();
   },
   methods: {
+    focus() {},
     getMore() {
       this.params.pageIndex++;
       this.getSquareList({ ...this.params });
@@ -104,6 +110,15 @@ export default {
 };
 </script>
 <style lang='less'>
+// .userinfo {
+//   display: flex;
+.avatar {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+// }
 .about {
   width: 500px;
 }
@@ -120,12 +135,12 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  // width: 178px;
+  // height: 178px;
+  // line-height: 178px;
   text-align: center;
 }
-.avatar {
+.avatar1 {
   width: 178px;
   height: 178px;
   display: block;

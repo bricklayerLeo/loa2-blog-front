@@ -15,3 +15,6 @@ export const createBlog = p => post('/api/blog/create', p)
 
 export const getProfileList = p => get('/api/blog/profile', p)
 export const getSquareList = p => get('/api/blog/square', p)
+export const toFollow = p => post('/api/blog/follow', p)
+export const unfollow = p => post('/api/blog/unfollow', p)
+    // / unfollow
