@@ -100,7 +100,7 @@ export default {
       formData.append("file", param.file);
       upload(formData)
         .then(response => {
-          this.imageUrl = "http://localhost:3000" + response.data.url;
+          this.imageUrl = "http://42.194.195.126:3000" + response.data.url;
 
           this.userInfo.picture = response.data.url; // console.log("上传图片成功");
           // param.onSuccess(); // 上传成功的图片会显示绿色的对勾
@@ -117,7 +117,7 @@ export default {
       const { nickName, userName, picture, city } = data;
       this.userInfo.nickName = nickName;
       // this.userInfo.picture = picture;
-      this.imageUrl = "http://localhost:3000" + picture;
+      this.imageUrl = "http://42.194.195.126:3000" + picture;
       this.userInfo.city = city;
       this.img = picture;
       // this.fileList.push({ url: picture });

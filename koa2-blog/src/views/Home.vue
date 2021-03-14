@@ -22,11 +22,20 @@
         <el-input v-model="formInline.password" placeholder="密码"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="onSubmit">登录</el-button>
       </el-form-item>
     </el-form>
     <!-- </el-main> -->
     <!-- </el-container> -->
+    <div class="yanse"></div>
+    <div class="time">
+      <div v-for="e in 12" :key="e" @click="changeyue(e)">{{e}}月</div>
+    </div>
+    <el-progress :percentage="percentage"></el-progress>
+    <el-button-group>
+      <el-button icon="el-icon-minus" @click="decrease"></el-button>
+      <el-button icon="el-icon-plus" @click="increase"></el-button>
+    </el-button-group>
   </div>
 </template>
 
@@ -39,6 +48,7 @@ export default {
   name: "Home",
   data() {
     return {
+      percentage: 8.4444,
       formInline: {
         userName: "",
         password: ""
@@ -49,6 +59,21 @@ export default {
     HelloWorld
   },
   methods: {
+    increase() {
+      this.percentage += 8.4444;
+      if (this.percentage > 100) {
+        this.percentage = 100;
+      }
+    },
+    changeyue(e) {
+      this.percentage = 8.4444 * (e - 1);
+    },
+    decrease() {
+      this.percentage -= 8.4444;
+      if (this.percentage < 0) {
+        this.percentage = 0;
+      }
+    },
     onSubmit() {
       login(this.formInline).then(res => {
         console.log(res.data, "-----------");
@@ -76,6 +101,30 @@ export default {
 };
 </script>
 <style lang='less'>
+.time {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  div {
+    width: 8.4444%;
+    text-align: left;
+  }
+}
+.el-progress-bar__inner {
+  background: linear-gradient(to right, #595747 20%, #ffa800 80%) !important;
+}
+.el-progress-bar {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+.el-progress__text {
+  display: none !important;
+}
+.yanse {
+  width: 300px;
+  height: 8px;
+  background: linear-gradient(to right, #595747, #ffa800);
+}
 .cont {
   display: flex;
   flex-direction: row;

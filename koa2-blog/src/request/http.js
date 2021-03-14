@@ -8,7 +8,7 @@ if (process.env.NODE_ENV == 'development') {
 } else if (process.env.NODE_ENV == 'debug') {
     axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
-    axios.defaults.baseURL = 'http://api.123dailu.com/';
+    axios.defaults.baseURL = 'http://42.194.195.126:3000';
 }
 
 // 请求超时时间
@@ -24,6 +24,7 @@ axios.interceptors.request.use(
         // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
         const token = localStorage.getItem('token');
         token && (config.headers.authorization = 'Bearer ' + token);
+        debugger
         return config;
     },
     error => {
@@ -33,11 +34,13 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
     response => {
+        debugger
         if (response.status === 200) {
             if (response.data.errno === '401') {
                 return router.replace('/')
             }
             //获取更新的token
+            debugger
             const { authorization } = response.headers;
             //如果token存在则存在localStorage
             if (authorization) {
@@ -46,6 +49,7 @@ axios.interceptors.response.use(
             }
             return Promise.resolve(response);
         } else {
+            debugger
             return Promise.reject(response);
         }
 

@@ -44,7 +44,7 @@ module.exports = {
         hotOnly: false,
         proxy: { // 配置跨域
             '/api': {
-                target: 'http://localhost:3000/',	//接口域名
+                target: 'http://42.194.195.126:3000',	//接口域名
                 ws: true,	//是否代理websockets
                 changOrigin: true,	//是否跨域
                 pathRewrite: {		//重置路径
