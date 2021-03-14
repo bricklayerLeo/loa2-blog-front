@@ -111,7 +111,7 @@ export default {
   }
 }
 .el-progress-bar__inner {
-  background: linear-gradient(to right, #595747 20%, #ffa800 80%) !important;
+  background: linear-gradient(to right, #595747 10%, #ffa800 80%) !important;
 }
 .el-progress-bar {
   padding-right: 0 !important;
