@@ -59,7 +59,8 @@ export default {
     };
   },
   created() {
-    this.getSquareList();
+    // this.getSquareList();
+    this.getaaa();
   },
   methods: {
     focus() {},
@@ -67,12 +68,28 @@ export default {
       this.params.pageIndex++;
       this.getSquareList({ ...this.params });
     },
-    getSquareList() {
-      getSquareList(this.params).then(res => {
-        console.log(res);
+    async getSquareList() {
+      const res = await getSquareList(this.params);
+      debugger;
+      console.log(res);
 
-        this.blogList = this.blogList.concat(res.data.blogList);
-      });
+      this.blogList = this.blogList.concat(res.data.blogList);
+      if (this.blogList) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    async getaaa() {
+      console.log("111");
+      const res = await this.getSquareList();
+      console.log(res);
+      console.log("222");
+      if (res) {
+        debugger;
+      } else {
+        debugger;
+      }
     },
     onSubmit() {
       createBlog(this.form).then(res => {
